@@ -25,7 +25,33 @@ if ($investment===false){
 }           
 //if an error occurs go to the index page.
 if($error_message !=''){
-    
+    include 'index.php';
+    exit();
 }
+//calculate future value
+$future_value=$investment;
+for($i=1;$i<=$years;$i++){
+    $future_value=$future_value+($future_value+$interest_rate*0.01);
+}
+$investment_f='$'. number_format($investment,2);
+$yearly_rate_f=$interest_rate.'%';
+$future_value_f='$'.number_format($future_value,2);
 ?>
+<!doctype html>
+<head>
+    <title>Future Value Calculator.</title>
+    <link rel="stylesheet" type='text/css' href="main.css"/>
+    <link rel='icon' type="x-icon/image" href='favico.ico'>
+    </head>
+    <body>
+        <main>
+            <h1>Future Value Calculator</h1>
+            <label>Investment:</label>
+            <span><?php $investment_f; ?></span><br>
+            <label>Yearly Interest Rate:</label>
+            <span><?php $yearly_rate_f; ?></span><br>
+            <label>Future Value:</label>
+            <span>$future_value_f</span><br>
+        </main>
+    </body>
 
